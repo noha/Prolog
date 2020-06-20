@@ -62,6 +62,28 @@ PrologGrammarTest >> testAtomInvalid [
 ]
 
 { #category : #tests }
+PrologGrammarTest >> testAtomSpecial [
+	self 
+    parse: '\+' 
+    rule: #atom
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testCallable [
+	self 
+		parse: 'member(X, A)'
+		rule: #callable
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testCallableList [
+	self 
+    parse: 'member(X, A),
+	isList(A)'
+	rule: #termList
+]
+
+{ #category : #tests }
 PrologGrammarTest >> testClauseList [
 	self 
     parse: 'male(bob).
@@ -109,15 +131,7 @@ PrologGrammarTest >> testParseSmallAtom [
 PrologGrammarTest >> testPredicate [
 	self 
     parse: 'male(bob)' 
-    rule: #predicate
-]
-
-{ #category : #tests }
-PrologGrammarTest >> testPredicateList [
-	self 
-    parse: 'member(X, A),
-	isList(A)'
-	rule: #predicateList
+    rule: #callable
 ]
 
 { #category : #tests }
@@ -131,7 +145,7 @@ PrologGrammarTest >> testTermAtom [
 PrologGrammarTest >> testTermComplexOnlyAtoms [
 	self 
     parse: 'func(foo(bar))' 
-    rule: #structure
+    rule: #callable
 ]
 
 { #category : #tests }
