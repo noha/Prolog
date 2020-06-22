@@ -13,9 +13,24 @@ PLAtom class >> named: aString [
 		name: aString
 ]
 
+{ #category : #'as yet unclassified' }
+PLAtom >> call [
+	^ (self knowledgeBase termsWithAtom: self) notEmpty 
+]
+
 { #category : #testing }
 PLAtom >> hasSameName: aString [ 
 	^ name = aString
+]
+
+{ #category : #'as yet unclassified' }
+PLAtom >> indexKey [
+	^ name
+]
+
+{ #category : #accessing }
+PLAtom >> name [
+	^ name
 ]
 
 { #category : #accessing }
@@ -36,4 +51,10 @@ PLAtom >> unifiesWithAtom: aAtom [
 { #category : #'as yet unclassified' }
 PLAtom >> unifiesWithTerm: aTerm [
 	^ aTerm unifiesWithAtom: self 
+]
+
+{ #category : #'as yet unclassified' }
+PLAtom >> unifiesWithVariable: aPLVariable [ 
+	^ aPLVariable notGrounded or: [ 
+		aPLVariable hasSameContent: name ]
 ]

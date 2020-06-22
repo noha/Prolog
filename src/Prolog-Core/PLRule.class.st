@@ -24,6 +24,11 @@ PLRule >> head: aTerm body: aCollection [
 	body := aCollection 
 ]
 
+{ #category : #accessing }
+PLRule >> indexKey [
+	^ head indexKey
+]
+
 { #category : #printing }
 PLRule >> printOn: aStream [
 	head printOn: aStream.

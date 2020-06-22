@@ -7,22 +7,40 @@ Class {
 	#category : #'Prolog-Core'
 }
 
-{ #category : #'instance creation' }
+{ #category : #'as yet unclassified' }
 PLKnowledgeBase class >> terms: aCollection [ 
-	^ self new 
-		terms: aCollection
+	^ self new
+		terms: aCollection 
+]
+
+{ #category : #'instance creation' }
+PLKnowledgeBase >> newCallContext [
+	^ PLCallContext new
+		knowledgeBase: self 
 ]
 
 { #category : #searching }
 PLKnowledgeBase >> query: aString [ 
 	| queryStructure |
 	queryStructure := (PrologParser parse: '?- ', aString startingAt: #query) second.
-	terms do: [ :each |
-		 (each unifiesWith: queryStructure) ifTrue: [ 
-			^ true ] ]
+	^ PLCurrentCallContext 
+		value: self newCallContext
+		during: [  queryStructure call ]
+]
+
+{ #category : #accessing }
+PLKnowledgeBase >> terms [
+	^ terms
 ]
 
 { #category : #accessing }
 PLKnowledgeBase >> terms: aCollection [ 
-	terms := aCollection 
+	terms := aCollection groupedBy: #indexKey
+]
+
+{ #category : #searching }
+PLKnowledgeBase >> termsWithAtom: aPLAtom [ 
+	^ terms 
+		at: aPLAtom name
+		ifAbsent: [ #() ]
 ]
