@@ -16,7 +16,7 @@ PrologParser >> clause [
 
 { #category : #accessing }
 PrologParser >> compoundTerm [
-	^ ( atom, $( asPParser trim, termList,  $) asPParser trim ) ==> [ :nodes | PLCompoundTerm functor: nodes first arguments: nodes third ]
+	^ super compoundTerm ==> [ :nodes | PLCompoundTerm functor: nodes first arguments: nodes third ]
 ]
 
 { #category : #'as yet unclassified' }

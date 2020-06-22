@@ -114,17 +114,17 @@ PrologGrammarTest >> testClauseWithNeckOperator [
 ]
 
 { #category : #tests }
+PrologGrammarTest >> testInfixOperatorIs [
+	self 
+    parse: 'X is 3 + 4' 
+    rule: #infixCompoundTerm
+]
+
+{ #category : #tests }
 PrologGrammarTest >> testParseFamilyTree [
 	self 
     parse: self prologSourceFamilyTree 
     rule: #knowledgeBase 
-]
-
-{ #category : #tests }
-PrologGrammarTest >> testParseSmallAtom [
-	self 
-    parse: 'male' 
-    rule: #smallAtom
 ]
 
 { #category : #tests }
@@ -173,5 +173,12 @@ PrologGrammarTest >> testTermVariable [
 PrologGrammarTest >> testVariable [
 	self 
     parse: 'Var1' 
+    rule: #variable
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testVariableOneLetter [
+	self 
+    parse: 'X' 
     rule: #variable
 ]

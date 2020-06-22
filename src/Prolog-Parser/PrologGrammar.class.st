@@ -11,7 +11,6 @@ Class {
 		'termList',
 		'term',
 		'variable',
-		'smallAtom',
 		'string',
 		'character',
 		'special',
@@ -22,14 +21,28 @@ Class {
 		'compoundTerm',
 		'callable',
 		'clauseTerm',
-		'number'
+		'number',
+		'infixCompoundTerm',
+		'prefixCompoundTerm',
+		'operator',
+		'operatorList',
+		'atomCharacter'
 	],
 	#category : #'Prolog-Parser'
 }
 
 { #category : #accessing }
 PrologGrammar >> atom [ 
-	^ (smallAtom / ($' asPParser, string, $' asPParser) / special plus) flatten
+	"An atom is a collection of atom characters starting with either a lowercase letter 
+	or is enclosed in single quotes."
+	self flag: #todo.
+	"Combination of special characters I saw somewhere on the net but not sure"
+	^ (lowercase, atomCharacter star / ($' asPParser, string, $' asPParser)) flatten
+]
+
+{ #category : #accessing }
+PrologGrammar >> atomCharacter [
+	^ lowercase / uppercase / #digit asPParser / $_ asPParser 
 ]
 
 { #category : #accessing }
@@ -60,12 +73,17 @@ PrologGrammar >> clauseTerm [
 
 { #category : #accessing }
 PrologGrammar >> compoundTerm [
-	^ ( atom, $( asPParser trim, termList,  $) asPParser trim )
+	^ infixCompoundTerm / prefixCompoundTerm
 ]
 
 { #category : #'as yet unclassified' }
 PrologGrammar >> fact [
 	^ compoundTerm / atom
+]
+
+{ #category : #accessing }
+PrologGrammar >> infixCompoundTerm [
+	^ (prefixCompoundTerm / variable) , operatorList
 ]
 
 { #category : #accessing }
@@ -89,6 +107,21 @@ PrologGrammar >> number [
 ]
 
 { #category : #accessing }
+PrologGrammar >> operator [ 
+	^ ',' asPParser / ':-' asPParser / 'is' asPParser / $+ asPParser 
+]
+
+{ #category : #accessing }
+PrologGrammar >> operatorList [
+	^ (operator trim , term) plus
+]
+
+{ #category : #accessing }
+PrologGrammar >> prefixCompoundTerm [
+	^ atom, $( asPParser trim, termList,  $) asPParser trim
+]
+
+{ #category : #accessing }
 PrologGrammar >> program [
 	^ (clauseList, query) / query
 ]
@@ -104,11 +137,6 @@ PrologGrammar >> rule [
 ]
 
 { #category : #accessing }
-PrologGrammar >> smallAtom [ 
-	^ lowercase, character star
-]
-
-{ #category : #accessing }
 PrologGrammar >> special [
 	^ PP2PredicateObjectNode anyOf: {  $+ . $- . $* . $/ . $\ . $^ . $~ . $: . $. . $? . Character space .  $# . $$ . $& }
 ]
@@ -120,7 +148,7 @@ PrologGrammar >> start [
 
 { #category : #accessing }
 PrologGrammar >> string [
-	^ character plus
+	^ (character / special) plus
 ]
 
 { #category : #accessing }
@@ -146,5 +174,8 @@ PrologGrammar >> uppercase [
 
 { #category : #accessing }
 PrologGrammar >> variable [ 
-	^ (uppercase, character star) flatten
+	"A variable does either:
+	- starts with an uppercase letter and contains only valid chars
+	- starts with an underscore. Special variable is only underscore"
+	^ ((uppercase, atomCharacter star) / ($_ asPParser, atomCharacter star))  flatten
 ]
