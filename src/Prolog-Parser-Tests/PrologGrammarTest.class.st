@@ -6,7 +6,7 @@ Class {
 
 { #category : #private }
 PrologGrammarTest >> expectedFailures [ 
-	^ #( testTermComplexWithVariables )
+	^ #( testTermComplexWithVariables testAtomSpecial)
 ]
 
 { #category : #accessing }
