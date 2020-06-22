@@ -26,7 +26,8 @@ Class {
 		'prefixCompoundTerm',
 		'operator',
 		'operatorList',
-		'atomCharacter'
+		'atomCharacter',
+		'head'
 	],
 	#category : #'Prolog-Parser'
 }
@@ -78,7 +79,12 @@ PrologGrammar >> compoundTerm [
 
 { #category : #'as yet unclassified' }
 PrologGrammar >> fact [
-	^ compoundTerm / atom
+	^ head
+]
+
+{ #category : #'as yet unclassified' }
+PrologGrammar >> head [
+	^ prefixCompoundTerm / atom
 ]
 
 { #category : #accessing }
@@ -133,7 +139,7 @@ PrologGrammar >> query [
 
 { #category : #accessing }
 PrologGrammar >> rule [
-	^ fact, ':-' asPParser trim, termList
+	^ head, ':-' asPParser trim, termList
 ]
 
 { #category : #accessing }
@@ -158,7 +164,7 @@ PrologGrammar >> term [
 
 { #category : #accessing }
 PrologGrammar >> termList [
-	^ term separatedBy: $, asPParser trim
+	^ (term, operatorList) / term
 ]
 
 { #category : #converting }

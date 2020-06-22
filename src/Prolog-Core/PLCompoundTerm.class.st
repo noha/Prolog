@@ -17,6 +17,7 @@ PLCompoundTerm class >> functor: anAtom arguments: aCollection [
 { #category : #accessing }
 PLCompoundTerm >> functor: anAtom arguments: aCollection [ 
 	functor := anAtom.
+	self assert: (aCollection isCollection not).
 	arguments := aCollection
 ]
 
@@ -24,8 +25,9 @@ PLCompoundTerm >> functor: anAtom arguments: aCollection [
 PLCompoundTerm >> printOn: aStream [
 	functor printOn: aStream.
 	aStream << '('.
-	arguments 
+	"arguments 
 		do: [ :each | each printOn: aStream ]
-		separatedBy: [ aStream << ', ' ].
+		separatedBy: [ aStream << ', ' ]."
+	arguments printOn: aStream.
 	aStream << ')'
 ]

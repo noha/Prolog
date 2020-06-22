@@ -1,5 +1,5 @@
 Class {
-	#name : #PLFact,
+	#name : #PLHead,
 	#superclass : #PLTerm,
 	#instVars : [
 		'head'
@@ -8,17 +8,17 @@ Class {
 }
 
 { #category : #'instance creation' }
-PLFact class >> head: aCompoundTerm [ 
+PLHead class >> head: aCompoundTerm [ 
 	^ self new 
 		head: aCompoundTerm 
 ]
 
 { #category : #accessing }
-PLFact >> head: aTerm [ 
+PLHead >> head: aTerm [ 
 	head := aTerm
 ]
 
 { #category : #printing }
-PLFact >> printOn: aStream [
+PLHead >> printOn: aStream [
 	head printOn: aStream
 ]

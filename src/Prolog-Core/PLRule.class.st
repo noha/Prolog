@@ -28,7 +28,5 @@ PLRule >> head: aTerm body: aCollection [
 PLRule >> printOn: aStream [
 	head printOn: aStream.
 	aStream << ' :- '.
-	body 
-		do: [ :each |each printOn: aStream ]
-		separatedBy: [ aStream << ', ' ]
+	body printOn: aStream 
 ]
