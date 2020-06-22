@@ -11,8 +11,8 @@ Starting all over. After the prolog class I need to clarify terminology. Prolog 
 - [x] term is the driving term ;) for the syntax
 - [x] a term can be an atom, a variable, a number or a compound term
 - [x] compound terms are either prefix where the leading atom is called functor or
-- [] are infix, postfix, etc. Operators in prolog are special entities with configuration of Xfix notation and precedence
-- [] so my conclusion is to start with petit parser that can parse a family tree knowledgebase
+- [ ] are infix, postfix, etc. Operators in prolog are special entities with configuration of Xfix notation and precedence
+- [ ] so my conclusion is to start with petit parser that can parse a family tree knowledgebase
 Links:
 
 - [ISO Standard](https://www.iso.org/standard/21413.html)
