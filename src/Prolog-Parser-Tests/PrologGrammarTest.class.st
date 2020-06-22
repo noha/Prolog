@@ -76,14 +76,6 @@ PrologGrammarTest >> testCallable [
 ]
 
 { #category : #tests }
-PrologGrammarTest >> testCallableList [
-	self 
-    parse: 'member(X, A),
-	isList(A)'
-	rule: #termList
-]
-
-{ #category : #tests }
 PrologGrammarTest >> testClauseList [
 	self 
     parse: 'male(bob).
@@ -114,6 +106,13 @@ PrologGrammarTest >> testClauseWithNeckOperator [
 ]
 
 { #category : #tests }
+PrologGrammarTest >> testFact [
+	self 
+    parse: 'father(F,C)' 
+    rule: #fact
+]
+
+{ #category : #tests }
 PrologGrammarTest >> testInfixOperatorIs [
 	self 
     parse: 'X is 3 + 4' 
@@ -128,10 +127,17 @@ PrologGrammarTest >> testParseFamilyTree [
 ]
 
 { #category : #tests }
-PrologGrammarTest >> testPredicate [
+PrologGrammarTest >> testPrefixCompoundTerm [
 	self 
     parse: 'male(bob)' 
-    rule: #callable
+    rule: #prefixCompoundTerm 
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testRule [
+	self 
+    parse: 'father(F,C) :- male(F), parent(F,C)' 
+    rule: #rule
 ]
 
 { #category : #tests }
@@ -153,6 +159,14 @@ PrologGrammarTest >> testTermComplexWithVariables [
 	self 
     parse: 'func(foo(Var1-Var2))' 
     rule: #structure
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testTermList [
+	self 
+    parse: 'member(X, A),
+	isList(A)'
+	rule: #termList
 ]
 
 { #category : #tests }
