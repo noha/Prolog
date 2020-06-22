@@ -22,3 +22,8 @@ PLHead >> head: aTerm [
 PLHead >> printOn: aStream [
 	head printOn: aStream
 ]
+
+{ #category : #'as yet unclassified' }
+PLHead >> unifiesWith: aTerm [ 
+	^ head unifiesWith: aTerm
+]

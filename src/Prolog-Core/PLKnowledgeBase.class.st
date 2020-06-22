@@ -13,6 +13,15 @@ PLKnowledgeBase class >> terms: aCollection [
 		terms: aCollection
 ]
 
+{ #category : #searching }
+PLKnowledgeBase >> query: aString [ 
+	| queryStructure |
+	queryStructure := (PrologParser parse: '?- ', aString startingAt: #query) second.
+	terms do: [ :each |
+		 (each unifiesWith: queryStructure) ifTrue: [ 
+			^ true ] ]
+]
+
 { #category : #accessing }
 PLKnowledgeBase >> terms: aCollection [ 
 	terms := aCollection 

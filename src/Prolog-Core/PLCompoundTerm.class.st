@@ -21,6 +21,11 @@ PLCompoundTerm >> functor: anAtom arguments: aCollection [
 	arguments := aCollection
 ]
 
+{ #category : #'as yet unclassified' }
+PLCompoundTerm >> hasSameFunctor: anAtom [ 
+	^ anAtom unifiesWithAtom: functor
+]
+
 { #category : #printing }
 PLCompoundTerm >> printOn: aStream [
 	functor printOn: aStream.
@@ -30,4 +35,16 @@ PLCompoundTerm >> printOn: aStream [
 		separatedBy: [ aStream << ', ' ]."
 	arguments printOn: aStream.
 	aStream << ')'
+]
+
+{ #category : #'as yet unclassified' }
+PLCompoundTerm >> unifiesWith: aTerm [ 
+	^ aTerm unifiesWithCompundTerm: self
+]
+
+{ #category : #'as yet unclassified' }
+PLCompoundTerm >> unifiesWithCompundTerm: aPLCompoundTerm [ 
+	(aPLCompoundTerm hasSameFunctor: functor) ifFalse: [
+		^ false ].
+	^ arguments unifiesWithTerm: arguments.
 ]
