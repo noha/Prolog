@@ -14,7 +14,7 @@ BaselineOfProlog >> baseline: spec [
 			package: 'Prolog-Parser' with: [ spec requires: #('Prolog-Core' 'PetitParser2Core') ];
 			package: 'Prolog-Parser-Tests' with: [ spec requires: #('Prolog-Parser') ];
 
-			group: 'default' with: #(core parser);
+			group: 'default' with: #(core parser tests);
 			group: 'core' with: #('Prolog-Core');
 			group: 'parser' with: #('Prolog-Parser');
 			group: 'tests' with: #('Prolog-Core-Tests' 'Prolog-Parser-Tests').
