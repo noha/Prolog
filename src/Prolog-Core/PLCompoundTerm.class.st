@@ -3,7 +3,8 @@ Class {
 	#superclass : #PLTerm,
 	#instVars : [
 		'functor',
-		'arguments'
+		'arguments',
+		'parent'
 	],
 	#category : #'Prolog-Core'
 }
@@ -16,20 +17,18 @@ PLCompoundTerm class >> functor: anAtom arguments: aCollection [
 
 { #category : #'as yet unclassified' }
 PLCompoundTerm >> call [
-	| candidates terms r v ret |
+	| terms succeeded ret |
 	terms := self knowledgeBase termsWithAtom: functor.
-	"candidates := terms select: [ :each | each unifiesWithTerm: self ]."
-	v := OrderedCollection new.
-	r := terms do: [ :each | | ctx |
-		ctx := self callContext newCallContext.
-		ret := PLCurrentCallContext 
-			value: ctx
-			during: [ each unifiesWithTerm: self ].
-		ret ifTrue: [ 
-			v add: ctx ] ].
-	^ String streamContents: [:stream |
-		v do: [ :each |
-			each printOn: stream ] ]
+	succeeded := OrderedCollection new.
+	terms do: [ :each | | ctx |
+		ctx := self callContext makeCopy.
+		ret := ctx
+			execute: [ each unifiesWithTerm: self ]
+			for: each
+			copyVariables: false.
+		ret ifTrue: [
+			succeeded add: ctx ] ].
+	^ { true . succeeded }
 ]
 
 { #category : #accessing }
@@ -38,10 +37,12 @@ PLCompoundTerm >> functor [
 ]
 
 { #category : #accessing }
-PLCompoundTerm >> functor: anAtom arguments: aCollection [ 
+PLCompoundTerm >> functor: anAtom arguments: aLinkedList [ 
 	functor := anAtom.
-	self assert: (aCollection isCollection not).
-	arguments := aCollection
+	self assert: (aLinkedList isCollection not).
+	self assert: (aLinkedList isKindOf: PLLinkedList).
+	aLinkedList parent: self.
+	arguments := aLinkedList
 ]
 
 { #category : #accessing }
@@ -57,6 +58,17 @@ PLCompoundTerm >> hasSameFunctor: anAtom [
 { #category : #accessing }
 PLCompoundTerm >> indexKey [
 	^ functor name
+]
+
+{ #category : #'as yet unclassified' }
+PLCompoundTerm >> parent [
+	^ parent
+]
+
+{ #category : #'as yet unclassified' }
+PLCompoundTerm >> parent: aTerm [
+	parent := aTerm.
+	arguments parent: self
 ]
 
 { #category : #printing }

@@ -13,6 +13,16 @@ PLKnowledgeBase class >> terms: aCollection [
 		terms: aCollection 
 ]
 
+{ #category : #'as yet unclassified' }
+PLKnowledgeBase >> call: aTerm [
+	| ctx |
+	ctx := PLSubCallContext new
+		knowledgeBase: self;
+		receiver: aTerm;
+		sender: self.
+	^ ctx callTerm: aTerm
+]
+
 { #category : #'instance creation' }
 PLKnowledgeBase >> newCallContext [
 	^ PLCallContext new
@@ -21,11 +31,10 @@ PLKnowledgeBase >> newCallContext [
 
 { #category : #searching }
 PLKnowledgeBase >> query: aString [ 
-	| queryStructure |
+	| queryStructure ret |
 	queryStructure := (PrologParser parse: '?- ', aString startingAt: #query) second.
-	^ PLCurrentCallContext 
-		value: self newCallContext
-		during: [  queryStructure call ]
+	ret := self call: queryStructure.
+	^ ret
 ]
 
 { #category : #accessing }

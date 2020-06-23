@@ -27,7 +27,9 @@ Class {
 		'operator',
 		'operatorList',
 		'atomCharacter',
-		'head'
+		'head',
+		'commaList',
+		'termListWithOperators'
 	],
 	#category : #'Prolog-Parser'
 }
@@ -73,8 +75,13 @@ PrologGrammar >> clauseTerm [
 ]
 
 { #category : #accessing }
+PrologGrammar >> commaList [
+	^ term separatedBy: $, asPParser trim
+]
+
+{ #category : #accessing }
 PrologGrammar >> compoundTerm [
-	^ infixCompoundTerm / prefixCompoundTerm
+	^ rule / infixCompoundTerm / prefixCompoundTerm
 ]
 
 { #category : #'as yet unclassified' }
@@ -114,7 +121,7 @@ PrologGrammar >> number [
 
 { #category : #accessing }
 PrologGrammar >> operator [ 
-	^ ',' asPParser / ':-' asPParser / 'is' asPParser / $+ asPParser 
+	^ "',' asPParser /" ':-' asPParser / 'is' asPParser / $+ asPParser 
 ]
 
 { #category : #accessing }
@@ -164,7 +171,12 @@ PrologGrammar >> term [
 
 { #category : #accessing }
 PrologGrammar >> termList [
-	^ (term, operatorList) / term
+	^ commaList / termListWithOperators
+]
+
+{ #category : #accessing }
+PrologGrammar >> termListWithOperators [
+	^ term separatedBy: operator trim
 ]
 
 { #category : #converting }

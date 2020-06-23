@@ -20,5 +20,6 @@ PLBody >> printOn: aStream [
 
 { #category : #accessing }
 PLBody >> terms: aCollection [
+	terms do: [ :each | each parent: self ].
 	terms := aCollection
 ]

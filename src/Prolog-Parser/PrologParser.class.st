@@ -14,6 +14,12 @@ PrologParser >> clause [
 	^ super clause ==> #first
 ]
 
+{ #category : #accessing }
+PrologParser >> commaList [
+	^ super commaList withoutSeparators ==> [ :nodes | 
+		PLLinkedList functor: '.' arguments: nodes ]
+]
+
 { #category : #'as yet unclassified' }
 PrologParser >> fact [
 	^ super fact ==> [ :node | PLHead head: node ]
@@ -21,26 +27,25 @@ PrologParser >> fact [
 
 { #category : #accessing }
 PrologParser >> infixCompoundTerm [
-	^ super infixCompoundTerm ==> [ :nodes |
-		(nodes second first first = ',') 
-			ifTrue: [ self linkedListFrom: nodes ]
-			ifFalse: [  
-				(nodes second first first = ':-') 
-					ifTrue: [ PLRule 
-						head: nodes first
-						body: (PLBody terms: (nodes second collect: #second)) ]
-					ifFalse: [ self halt ]] ]
+	^ super infixCompoundTerm ==> [ :nodes | self halt. nodes ]
+]
+
+{ #category : #accessing }
+PrologParser >> infixCompoundTermX [
+	^ super infixCompoundTerm ==> [ :nodes | | n args |
+		n := OrderedCollection new.
+		n add: nodes first.
+		args := nodes second flattened.
+		n addAll: (args reject: [ :each | each = ',' ]).
+		(args first = ',') 
+			ifTrue: [ self linkedListFrom: n ]
+			ifFalse: [ self halt ] ]
 ]
 
 { #category : #accessing }
 PrologParser >> linkedListFrom: nodes [
-	| args |
-	args := OrderedCollection new.
-	args add: nodes first.
-	self assert: (nodes second allSatisfy: [ :each | each size = 2 ]).
-	self assert: (nodes second allSatisfy: [ :each | each first = ',' ]).
-	args addAll: (nodes second collect: #second).
-	^ PLLinkedList functor: '.' arguments: args 
+	self assert: (nodes noneSatisfy: [ :each | each isString not and: [ each isCollection ] ]).
+	^ PLLinkedList functor: '.' arguments: nodes 
 ]
 
 { #category : #accessing }
@@ -50,7 +55,9 @@ PrologParser >> prefixCompoundTerm [
 			functor: nodes first 
 			arguments: (nodes third isCollection 
 				ifTrue: [ self linkedListFrom: nodes third]
-				ifFalse: [ nodes third ]) ]
+				ifFalse: [ 
+					self assert: (nodes third isKindOf: PLLinkedList).
+					nodes third]) ]
 ]
 
 { #category : #accessing }
@@ -64,8 +71,11 @@ PrologParser >> start [
 ]
 
 { #category : #accessing }
-PrologParser >> termList [
-	^ super termList  ==> [ :nodes | nodes ]
+PrologParser >> termListWithOperators [
+	^ super termListWithOperators withoutSeparators ==> [ :nodes | 
+		PLLinkedList functor: '.' arguments: nodes ]
+			
+		
 ]
 
 { #category : #accessing }

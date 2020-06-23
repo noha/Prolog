@@ -11,5 +11,18 @@ PLTerm >> callContext [
 
 { #category : #accessing }
 PLTerm >> knowledgeBase [
-	^ self callContext knowledgeBase 
+	^ self myCallContext knowledgeBase 
+]
+
+{ #category : #'as yet unclassified' }
+PLTerm >> myCallContext [
+	^ PLCurrentCallContext value contextFor: self
+]
+
+{ #category : #'as yet unclassified' }
+PLTerm >> top [
+	
+	^ self parent 
+		ifNotNil: [ :parent | parent top ]
+		ifNil: [  self ]
 ]
