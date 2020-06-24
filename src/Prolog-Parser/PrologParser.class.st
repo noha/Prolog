@@ -17,12 +17,24 @@ PrologParser >> clause [
 { #category : #accessing }
 PrologParser >> commaList [
 	^ super commaList withoutSeparators ==> [ :nodes | 
-		PLLinkedList functor: '.' arguments: nodes ]
+		PLList elements: nodes ]
 ]
 
 { #category : #'as yet unclassified' }
 PrologParser >> fact [
 	^ super fact ==> [ :node | PLHead head: node ]
+]
+
+{ #category : #accessing }
+PrologParser >> fullCommaList [
+	^ super fullCommaList ==> [ :nodes |
+		PLList elements: (nodes second reject: [ :each | each = $, ]) ]
+]
+
+{ #category : #accessing }
+PrologParser >> holeList [
+	^ super holeList ==> [ :nodes | 
+		PLHoleList head: nodes second tail: nodes fourth ]
 ]
 
 { #category : #accessing }
@@ -45,7 +57,12 @@ PrologParser >> infixCompoundTermX [
 { #category : #accessing }
 PrologParser >> linkedListFrom: nodes [
 	self assert: (nodes noneSatisfy: [ :each | each isString not and: [ each isCollection ] ]).
-	^ PLLinkedList functor: '.' arguments: nodes 
+	^ PLList elements: nodes 
+]
+
+{ #category : #accessing }
+PrologParser >> number [
+	^ super number ==> [ :nodes | PLNumber value: nodes asNumber ]
 ]
 
 { #category : #accessing }
@@ -56,7 +73,7 @@ PrologParser >> prefixCompoundTerm [
 			arguments: (nodes third isCollection 
 				ifTrue: [ self linkedListFrom: nodes third]
 				ifFalse: [ 
-					self assert: (nodes third isKindOf: PLLinkedList).
+					self assert: (nodes third isKindOf: PLList).
 					nodes third]) ]
 ]
 
@@ -73,7 +90,7 @@ PrologParser >> start [
 { #category : #accessing }
 PrologParser >> termListWithOperators [
 	^ super termListWithOperators withoutSeparators ==> [ :nodes | 
-		PLLinkedList functor: '.' arguments: nodes ]
+		PLList elements: nodes ]
 			
 		
 ]

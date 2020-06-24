@@ -113,6 +113,13 @@ PrologGrammarTest >> testFact [
 ]
 
 { #category : #tests }
+PrologGrammarTest >> testHoleList [
+	self 
+    parse: '[H|T]' 
+    rule: #holeList
+]
+
+{ #category : #tests }
 PrologGrammarTest >> testInfixOperatorIs [
 	self 
     parse: 'X is 3 + 4' 

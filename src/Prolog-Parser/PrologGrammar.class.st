@@ -29,7 +29,9 @@ Class {
 		'atomCharacter',
 		'head',
 		'commaList',
-		'termListWithOperators'
+		'termListWithOperators',
+		'holeList',
+		'fullCommaList'
 	],
 	#category : #'Prolog-Parser'
 }
@@ -89,9 +91,19 @@ PrologGrammar >> fact [
 	^ head
 ]
 
+{ #category : #accessing }
+PrologGrammar >> fullCommaList [
+	^ $[ asPParser trim, (term separatedBy: $, asPParser trim), $] asPParser trim
+]
+
 { #category : #'as yet unclassified' }
 PrologGrammar >> head [
 	^ prefixCompoundTerm / atom
+]
+
+{ #category : #accessing }
+PrologGrammar >> holeList [
+	^ $[ asPParser trim, term , $| asPParser trim , term , $] asPParser trim
 ]
 
 { #category : #accessing }
@@ -166,7 +178,7 @@ PrologGrammar >> string [
 
 { #category : #accessing }
 PrologGrammar >> term [
-	^ compoundTerm / atom / variable / number 
+	^ compoundTerm / atom / variable / number / holeList / fullCommaList
 ]
 
 { #category : #accessing }

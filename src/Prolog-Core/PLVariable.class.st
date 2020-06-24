@@ -55,6 +55,16 @@ PLVariable >> unifiesWithAtom: aPLAtom [
 ]
 
 { #category : #'as yet unclassified' }
+PLVariable >> unifiesWithList: aPLList [ 
+	^ self unify: aPLList 
+]
+
+{ #category : #'as yet unclassified' }
+PLVariable >> unifiesWithNumber: aNumber [ 
+	^ self unify: aNumber
+]
+
+{ #category : #'as yet unclassified' }
 PLVariable >> unifiesWithTerm: aTerm [ 
 	^ aTerm unifiesWithVariable: self 
 ]
@@ -69,6 +79,16 @@ PLVariable >> unifiesWithVariable: aPLVariable [
 		aPLVariable unifyValue: self value ].
 	
 	
+]
+
+{ #category : #'as yet unclassified' }
+PLVariable >> unify: aTerm [ 
+	self isGrounded 
+		ifTrue: [ 
+			(self value unifiesWithTerm: aTerm) ifFalse: [ 
+				^ false ] ]
+		ifFalse: [ self setValue: aTerm ].
+	^ true 
 ]
 
 { #category : #evaluating }

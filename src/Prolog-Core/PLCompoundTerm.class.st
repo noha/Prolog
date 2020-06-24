@@ -40,7 +40,7 @@ PLCompoundTerm >> functor [
 PLCompoundTerm >> functor: anAtom arguments: aLinkedList [ 
 	functor := anAtom.
 	self assert: (aLinkedList isCollection not).
-	self assert: (aLinkedList isKindOf: PLLinkedList).
+	self assert: (aLinkedList isKindOf: PLList).
 	aLinkedList parent: self.
 	arguments := aLinkedList
 ]
@@ -78,7 +78,7 @@ PLCompoundTerm >> printOn: aStream [
 	"arguments 
 		do: [ :each | each printOn: aStream ]
 		separatedBy: [ aStream << ', ' ]."
-	arguments printOn: aStream.
+	arguments printElementsOn: aStream.
 	aStream << ')'
 ]
 

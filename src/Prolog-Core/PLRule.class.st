@@ -19,9 +19,11 @@ PLRule class >> head: aTerm body: aTermList [
 ]
 
 { #category : #accessing }
-PLRule >> head: aTerm body: aCollection [ 
+PLRule >> head: aTerm body: aPLList [ 
+	aTerm parent: self.
 	head := aTerm.
-	body := aCollection 
+	aPLList parent: self.
+	body := aPLList 
 ]
 
 { #category : #accessing }
@@ -34,4 +36,9 @@ PLRule >> printOn: aStream [
 	head printOn: aStream.
 	aStream << ' :- '.
 	body printOn: aStream 
+]
+
+{ #category : #'as yet unclassified' }
+PLRule >> unifiesWithTerm: aTerm [ 
+	^ aTerm unifiesWithTerm: head 
 ]

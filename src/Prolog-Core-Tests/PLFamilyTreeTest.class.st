@@ -1,20 +1,12 @@
 Class {
 	#name : #PLFamilyTreeTest,
 	#superclass : #PLKnowledgeBaseTest,
-	#instVars : [
-		'knowledgeBase'
-	],
 	#category : #'Prolog-Core-Tests'
 }
 
 { #category : #running }
 PLFamilyTreeTest >> knowledgeBaseSource [
 	^ self prologSourceFamilyTree 
-]
-
-{ #category : #running }
-PLFamilyTreeTest >> setUp [ 
-	knowledgeBase := self parse: self knowledgeBaseSource
 ]
 
 { #category : #tests }
