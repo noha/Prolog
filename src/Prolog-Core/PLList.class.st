@@ -39,6 +39,11 @@ PLList >> call [
 ]
 
 { #category : #accessing }
+PLList >> elementAt: anInteger [ 
+	^ elements at: anInteger 
+]
+
+{ #category : #accessing }
 PLList >> elements: aCollection [ 
 	self flag: #todo.
 	"overwritten method from super to disable collection check which is ok here"
@@ -68,6 +73,7 @@ PLList >> isEmpty [
 { #category : #'as yet unclassified' }
 PLList >> parent: aTerm [
 	super parent: aTerm.
+	elements ifNil: [ ^ self ].
 	elements do: [ :each | each parent: self  ]
 ]
 

@@ -19,12 +19,22 @@ PLHoleList class >> parent: aPLList [
 	self shouldBeImplemented.
 ]
 
+{ #category : #accessing }
+PLHoleList >> head [
+	^ head
+]
+
 { #category : #initialization }
 PLHoleList >> head: headVariable tail: tailVariable [ 
 	headVariable parent: self.
 	head := headVariable.
 	tailVariable parent: self.
 	tail := tailVariable 
+]
+
+{ #category : #accessing }
+PLHoleList >> tail [
+	^ tail
 ]
 
 { #category : #'as yet unclassified' }

@@ -20,6 +20,11 @@ PLNamedVariable >> isGrounded [
 ]
 
 { #category : #accessing }
+PLNamedVariable >> name [
+	^ name
+]
+
+{ #category : #accessing }
 PLNamedVariable >> name: aString [ 
 	name := aString
 ]
