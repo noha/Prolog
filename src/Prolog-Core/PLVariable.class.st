@@ -9,6 +9,12 @@ Class {
 	#category : #'Prolog-Core'
 }
 
+{ #category : #'as yet unclassified' }
+PLVariable class >> named: aString [ 
+	^ self new 
+		name: aString
+]
+
 { #category : #testing }
 PLVariable >> isGrounded [
 	^ self value notNil
