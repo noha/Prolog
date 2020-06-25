@@ -18,6 +18,14 @@ PLParserModelTest >> testAtom [
 ]
 
 { #category : #tests }
+PLParserModelTest >> testListEmpty [
+	| model |
+	model := self parse: '[]' rule: #compoundTerm.
+	self assert: (model isKindOf: PLList).
+	self assert: model isEmpty 
+]
+
+{ #category : #tests }
 PLParserModelTest >> testNumberFloat [
 	| model |
 	model := self parse: '1.234' rule: #number.

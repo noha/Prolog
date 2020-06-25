@@ -62,7 +62,7 @@ PLList >> hasSameElements: aCollection [
 
 { #category : #testing }
 PLList >> isEmpty [
-	^ elements isEmpty 
+	^ elements isNil or: [ elements isEmpty ]
 ]
 
 { #category : #'as yet unclassified' }

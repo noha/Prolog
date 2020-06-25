@@ -25,6 +25,11 @@ PrologParser >> commaList [
 		PLList elements: nodes ]
 ]
 
+{ #category : #accessing }
+PrologParser >> emptyList [
+	^ super emptyList ==> [ :nodes | PLList new ]
+]
+
 { #category : #'as yet unclassified' }
 PrologParser >> fact [
 	^ super fact ==> [ :node | PLHead head: node ]

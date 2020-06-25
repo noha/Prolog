@@ -90,7 +90,7 @@ PrologGrammar >> commaList [
 
 { #category : #accessing }
 PrologGrammar >> compoundTerm [
-	^ rule / infixCompoundTerm / prefixCompoundTerm / holeList / fullCommaList
+	^ rule / infixCompoundTerm / prefixCompoundTerm / holeList / fullCommaList / emptyList
 ]
 
 { #category : #accessing }
@@ -145,7 +145,7 @@ PrologGrammar >> number [
 
 { #category : #accessing }
 PrologGrammar >> operator [ 
-	^ "',' asPParser /" ':-' asPParser / 'is' asPParser / $+ asPParser / $- asPParser / $. asPParser / $= asPParser 
+	^ "',' asPParser /" ':-' asPParser / 'is' asPParser / $+ asPParser / $- asPParser / $= asPParser 
 ]
 
 { #category : #accessing }
@@ -155,7 +155,7 @@ PrologGrammar >> operatorList [
 
 { #category : #accessing }
 PrologGrammar >> prefixCompoundTerm [
-	^ (atom / operator), $( asPParser trim, termList,  $) asPParser trim
+	^ (atom / operator / $. asPParser), $( asPParser trim, termList,  $) asPParser trim
 ]
 
 { #category : #accessing }
