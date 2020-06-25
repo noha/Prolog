@@ -11,6 +11,7 @@ Another attempt to start a project that has low odds of being finished ever. Thi
 - [ ] add test for member/2
 - [ ] add test for append/3
 - [ ] collect examples to parse for making basic grammar more solid
+- [ ] understand lists. How to implement comman lists and hole lists best???
 
 __2020-06-24__
 
