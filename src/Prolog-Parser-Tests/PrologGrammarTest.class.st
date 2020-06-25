@@ -6,7 +6,7 @@ Class {
 
 { #category : #private }
 PrologGrammarTest >> expectedFailures [ 
-	^ #( testTermComplexWithVariables)
+	^ #(  testInfixCompoundTermOperatorMinus)
 ]
 
 { #category : #accessing }
@@ -108,10 +108,73 @@ PrologGrammarTest >> testHoleList [
 ]
 
 { #category : #tests }
+PrologGrammarTest >> testInfixCompoundTermOperatorMinus [
+	self 
+    parse: '-z' 
+    rule: #infixCompoundTerm 
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testInfixCompoundTermOperatorPlus [
+	self 
+    parse: 'a+b' 
+    rule: #infixCompoundTerm 
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testInfixCompoundTermOperatorUnify [
+	self 
+    parse: 'X=Y' 
+    rule: #infixCompoundTerm 
+]
+
+{ #category : #tests }
 PrologGrammarTest >> testInfixOperatorIs [
 	self 
     parse: 'X is 3 + 4' 
     rule: #infixCompoundTerm
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testListComma [
+	self 
+    parse: '[1,2,3]' 
+    rule: #compoundTerm
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testListEmpty [
+	self 
+    parse: '[]' 
+    rule: #atom
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testListHole [
+	self 
+    parse: '[A|B]' 
+    rule: #compoundTerm
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testListHoleNested [
+	self 
+    parse: '[1 | [2 | [3 | []]]]' 
+    rule: #compoundTerm
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testListPrefixNested [
+	self 
+    parse: '.(1, .(2, .(3, [])))' 
+    rule: #compoundTerm
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testListPrefixNotation [
+	self 
+    parse: '.(A,B)' 
+    rule: #compoundTerm
 ]
 
 { #category : #tests }
@@ -136,9 +199,51 @@ PrologGrammarTest >> testParseFamilyTree [
 ]
 
 { #category : #tests }
-PrologGrammarTest >> testPrefixCompoundTerm [
+PrologGrammarTest >> testPrefixCompoundTermOnlyAtoms [
+	self 
+    parse: 'func(foo(bar))' 
+    rule: #prefixCompoundTerm
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testPrefixCompoundTermOperatorMinusPrefix [
+	self 
+    parse: '-(z)' 
+    rule: #prefixCompoundTerm 
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testPrefixCompoundTermOperatorPlusPrefix [
+	self 
+    parse: '+(a,b)' 
+    rule: #prefixCompoundTerm 
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testPrefixCompoundTermOperatorUnifyPrefix [
+	self 
+    parse: '=(X,Y)' 
+    rule: #prefixCompoundTerm 
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testPrefixCompoundTermQuotedAtom [
+	self 
+    parse: '''Person_Friends''(zelda,[tom,jim])' 
+    rule: #prefixCompoundTerm 
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testPrefixCompoundTermSimple [
 	self 
     parse: 'male(bob)' 
+    rule: #prefixCompoundTerm 
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testPrefixCompoundTermTwoAtoms [
+	self 
+    parse: 'truck_year(''Mazda'', 1986)' 
     rule: #prefixCompoundTerm 
 ]
 
@@ -157,17 +262,10 @@ PrologGrammarTest >> testTermAtom [
 ]
 
 { #category : #tests }
-PrologGrammarTest >> testTermComplexOnlyAtoms [
-	self 
-    parse: 'func(foo(bar))' 
-    rule: #callable
-]
-
-{ #category : #tests }
 PrologGrammarTest >> testTermComplexWithVariables [
 	self 
     parse: 'func(foo(Var1-Var2))' 
-    rule: #structure
+    rule: #prefixCompoundTerm 
 ]
 
 { #category : #tests }

@@ -64,7 +64,7 @@ PrologGrammar >> callable [
 
 { #category : #accessing }
 PrologGrammar >> character [
-	^ lowercase / uppercase / #digit asPParser / special 
+	^ lowercase / uppercase / #digit asPParser / $_ asPParser / special 
 ]
 
 { #category : #accessing }
@@ -90,7 +90,7 @@ PrologGrammar >> commaList [
 
 { #category : #accessing }
 PrologGrammar >> compoundTerm [
-	^ rule / infixCompoundTerm / prefixCompoundTerm
+	^ rule / infixCompoundTerm / prefixCompoundTerm / holeList / fullCommaList
 ]
 
 { #category : #accessing }
@@ -120,7 +120,7 @@ PrologGrammar >> holeList [
 
 { #category : #accessing }
 PrologGrammar >> infixCompoundTerm [
-	^ (prefixCompoundTerm / variable) , operatorList
+	^ (prefixCompoundTerm / atom / variable) , operatorList
 ]
 
 { #category : #accessing }
@@ -145,7 +145,7 @@ PrologGrammar >> number [
 
 { #category : #accessing }
 PrologGrammar >> operator [ 
-	^ "',' asPParser /" ':-' asPParser / 'is' asPParser / $+ asPParser 
+	^ "',' asPParser /" ':-' asPParser / 'is' asPParser / $+ asPParser / $- asPParser / $. asPParser / $= asPParser 
 ]
 
 { #category : #accessing }
@@ -155,7 +155,7 @@ PrologGrammar >> operatorList [
 
 { #category : #accessing }
 PrologGrammar >> prefixCompoundTerm [
-	^ atom, $( asPParser trim, termList,  $) asPParser trim
+	^ (atom / operator), $( asPParser trim, termList,  $) asPParser trim
 ]
 
 { #category : #accessing }
@@ -190,7 +190,7 @@ PrologGrammar >> string [
 
 { #category : #accessing }
 PrologGrammar >> term [
-	^ compoundTerm / atom / variable / number / holeList / fullCommaList
+	^ compoundTerm / atom / variable / number 
 ]
 
 { #category : #accessing }
