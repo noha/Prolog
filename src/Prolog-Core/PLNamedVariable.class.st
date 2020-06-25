@@ -8,12 +8,6 @@ Class {
 	#category : #'Prolog-Core-Model'
 }
 
-{ #category : #'as yet unclassified' }
-PLNamedVariable class >> named: aString [ 
-	^ self new 
-		name: aString
-]
-
 { #category : #testing }
 PLNamedVariable >> isGrounded [
 	^ self value notNil
@@ -45,32 +39,42 @@ PLNamedVariable >> setValue: aTerm [
 ]
 
 { #category : #'as yet unclassified' }
-PLNamedVariable >> unifiesWithAtom: aPLAtom [ 
+PLNamedVariable >> unify: aTerm [ 
+	^ aTerm unifyWithVariable: self 
+]
+
+{ #category : #'as yet unclassified' }
+PLNamedVariable >> unifyValue: aTerm [ 
 	self isGrounded 
 		ifTrue: [ 
-			(self value unifiesWithAtom: aPLAtom) ifFalse: [ 
+			(self value unify: aTerm) ifFalse: [ 
+				^ false ] ]
+		ifFalse: [ self setValue: aTerm ].
+	^ true 
+]
+
+{ #category : #'as yet unclassified' }
+PLNamedVariable >> unifyWithAtom: aPLAtom [ 
+	self isGrounded 
+		ifTrue: [ 
+			(self value unifyWithAtom: aPLAtom) ifFalse: [ 
 				^ false ] ]
 		ifFalse: [ self setValue: aPLAtom ].
 	^ true 
 ]
 
 { #category : #'as yet unclassified' }
-PLNamedVariable >> unifiesWithList: aPLList [ 
-	^ self unify: aPLList 
+PLNamedVariable >> unifyWithList: aPLList [ 
+	^ self unifyValue: aPLList 
 ]
 
 { #category : #'as yet unclassified' }
-PLNamedVariable >> unifiesWithNumber: aNumber [ 
-	^ self unify: aNumber
+PLNamedVariable >> unifyWithNumber: aNumber [ 
+	^ self unifyValue: aNumber
 ]
 
 { #category : #'as yet unclassified' }
-PLNamedVariable >> unifiesWithTerm: aTerm [ 
-	^ aTerm unifiesWithVariable: self 
-]
-
-{ #category : #'as yet unclassified' }
-PLNamedVariable >> unifiesWithVariable: aPLVariable [ 
+PLNamedVariable >> unifyWithVariable: aPLVariable [ 
 	(self isGrounded & aPLVariable isGrounded) ifTrue: [ 
 		self halt ].
 	aPLVariable isGrounded ifTrue: [ 
@@ -79,16 +83,6 @@ PLNamedVariable >> unifiesWithVariable: aPLVariable [
 		aPLVariable unifyValue: self value ].
 	
 	
-]
-
-{ #category : #'as yet unclassified' }
-PLNamedVariable >> unify: aTerm [ 
-	self isGrounded 
-		ifTrue: [ 
-			(self value unifiesWithTerm: aTerm) ifFalse: [ 
-				^ false ] ]
-		ifFalse: [ self setValue: aTerm ].
-	^ true 
 ]
 
 { #category : #evaluating }

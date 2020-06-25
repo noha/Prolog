@@ -38,13 +38,13 @@ PLHoleList >> tail [
 ]
 
 { #category : #'as yet unclassified' }
-PLHoleList >> unifiesWithList: aPLList [ 
+PLHoleList >> unifyWithList: aPLList [ 
 	aPLList isEmpty ifTrue: [ 
 		^ false ].
-	(head unifiesWithTerm: aPLList first) ifFalse: [
+	(head unify: aPLList first) ifFalse: [
 		^ false ].
 	(aPLList size > 1) ifTrue: [ 
-		tail unifiesWithList: aPLList allButFirst ].
+		tail unifyWithList: aPLList allButFirst ].
 	^ true
 
 ]

@@ -39,6 +39,6 @@ PLRule >> printOn: aStream [
 ]
 
 { #category : #'as yet unclassified' }
-PLRule >> unifiesWithTerm: aTerm [ 
-	^ aTerm unifiesWithTerm: head 
+PLRule >> unify: aTerm [ 
+	^ aTerm unify: head 
 ]

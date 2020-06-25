@@ -36,6 +36,7 @@ PLSubCallContext >> contextFor: aTerm [
 	[ current isNil or: [ receiver = current] ] whileFalse: [ 
 		current := current parent ].
 	current ifNotNil: [ ^ self ].
+	parent ifNil: [ ^ self ].
 	ctx := self parent contextFor: aTerm.
 	ctx ifNil: [  self halt ].
 	^ ctx
