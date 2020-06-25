@@ -32,6 +32,53 @@ PLUnificationTest >> testAtom_Number [
 ]
 
 { #category : #tests }
+PLUnificationTest >> testCompoundDifferent_OnlyAtoms [
+	| compound compound2 |
+	compound := PLCompoundTerm functor: #foo asPLTerm arguments: { #bar asPLTerm . 123 asPLTerm } asPLTerm.
+	compound2 := PLCompoundTerm functor: #foo asPLTerm arguments: { #bar asPLTerm . 124 asPLTerm } asPLTerm.
+	self deny: (compound unify: compound2).
+]
+
+{ #category : #tests }
+PLUnificationTest >> testCompoundSame_OnlyAtoms [
+	| compound |
+	compound := PLCompoundTerm functor: #foo asPLTerm arguments: { #bar asPLTerm . 123 asPLTerm } asPLTerm.
+	self assert: (compound unify: compound).
+]
+
+{ #category : #tests }
+PLUnificationTest >> testListComma_CommaDifferent [
+	| list list2 |
+	list := { #bar asPLTerm . 123 asPLTerm } asPLTerm.
+	list2 := { #bar asPLTerm . 124 asPLTerm } asPLTerm.
+	self deny: (list unify: list2).
+]
+
+{ #category : #tests }
+PLUnificationTest >> testListComma_CommaDifferentSize [
+	| list list2 |
+	list := { #bar asPLTerm . 123 asPLTerm . #foo asPLTerm } asPLTerm.
+	list2 := { #bar asPLTerm . 124 asPLTerm } asPLTerm.
+	self deny: (list unify: list2).
+]
+
+{ #category : #tests }
+PLUnificationTest >> testListComma_CommaDifferentSizeOpposite [
+	| list list2 |
+	list := { #bar asPLTerm . 123 asPLTerm  } asPLTerm.
+	list2 := { #bar asPLTerm . 124 asPLTerm . #foo asPLTerm} asPLTerm.
+	self deny: (list unify: list2).
+]
+
+{ #category : #tests }
+PLUnificationTest >> testListComma_CommaSame [
+	| list list2 |
+	list := { #bar asPLTerm . 123 asPLTerm } asPLTerm.
+	list2 := { #bar asPLTerm . 123 asPLTerm } asPLTerm.
+	self assert: (list unify: list2).
+]
+
+{ #category : #tests }
 PLUnificationTest >> testNumber_Atom [
 	self deny: (1234 asPLTerm unify: #foo asPLTerm)
 ]
