@@ -18,24 +18,29 @@ PLNumber >> printOn: aStream [
 	aStream << value asString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #unification }
 PLNumber >> unifiesWithNumber: aPLNumber [ 
 	^ aPLNumber unifiesWithValue: value
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #unification }
 PLNumber >> unifiesWithTerm: aTerm [
 	^ aTerm unifiesWithNumber: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #unification }
 PLNumber >> unifiesWithValue: anInteger [ 
 	^ value == anInteger
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #unification }
 PLNumber >> unifiesWithVariable: aPLVariable [ 
 	^ aPLVariable unifiesWithNumber: self
+]
+
+{ #category : #evaluating }
+PLNumber >> value [
+	^ value
 ]
 
 { #category : #accessing }

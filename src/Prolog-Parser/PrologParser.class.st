@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #accessing }
+PrologParser >> anonymousVariable [
+	^ super anonymousVariable ==> [ :nodes | PLAnonymousVariable new ]
+]
+
+{ #category : #accessing }
 PrologParser >> atom [
 	^ super atom ==> [ :node | PLAtom named: node ]
 ]
@@ -97,5 +102,5 @@ PrologParser >> termListWithOperators [
 
 { #category : #accessing }
 PrologParser >> variable [
-	^ super variable ==> [ :nodes | PLVariable named: nodes ]
+	^ super variable ==> [ :nodes | PLNamedVariable named: nodes ]
 ]

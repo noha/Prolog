@@ -1,6 +1,6 @@
 Class {
 	#name : #PrologGrammarTest,
-	#superclass : #PP2CompositeNodeTest,
+	#superclass : #PLSyntaxTest,
 	#category : #'Prolog-Parser-Tests'
 }
 
@@ -12,39 +12,6 @@ PrologGrammarTest >> expectedFailures [
 { #category : #accessing }
 PrologGrammarTest >> parserClass [ 
 	^ PrologGrammar 
-]
-
-{ #category : #'as yet unclassified' }
-PrologGrammarTest >> prologSourceFamilyTree [
-	^ 'male(norbert).
-male(daniel).
-male(roger).
-male(ludwig).
-male(winfried).
-
-female(andrea).
-female(kerstin).
-female(luzi).
-female(franziska).
-
-parent(kerstin, luzi).
-parent(norbert, luzi).
-parent(andrea, daniel).
-parent(andrea, bianca).
-parent(franziska, norbert).
-parent(franziska, roger).
-parent(franziska, andrea).
-parent(ludwig, norbert).
-parent(ludwig, andrea).
-parent(ludwig, roger).
-parent(sefi, kerstin).
-parent(winfried, kerstin).
-parent(klaus, daniel).
-parent(klaus, bianca).
-
-father(F,C) :- male(F), parent(F,C).
-mother(M,C) :- female(M), parent(M,C).
-'
 ]
 
 { #category : #tests }
@@ -148,6 +115,20 @@ PrologGrammarTest >> testInfixOperatorIs [
 ]
 
 { #category : #tests }
+PrologGrammarTest >> testNumberFloat [
+	self 
+    parse: '1.234' 
+    rule: #number
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testNumberInteger [
+	self 
+    parse: '1234' 
+    rule: #number
+]
+
+{ #category : #tests }
 PrologGrammarTest >> testParseFamilyTree [
 	self 
     parse: self prologSourceFamilyTree 
@@ -212,7 +193,14 @@ PrologGrammarTest >> testTermVariable [
 ]
 
 { #category : #tests }
-PrologGrammarTest >> testVariable [
+PrologGrammarTest >> testVariableAnonymous [
+	self 
+    parse: '_' 
+    rule: #variable
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testVariableDefault [
 	self 
     parse: 'Var1' 
     rule: #variable
@@ -222,5 +210,12 @@ PrologGrammarTest >> testVariable [
 PrologGrammarTest >> testVariableOneLetter [
 	self 
     parse: 'X' 
+    rule: #variable
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testVariableStartsWithUnderscore [
+	self 
+    parse: '_small' 
     rule: #variable
 ]

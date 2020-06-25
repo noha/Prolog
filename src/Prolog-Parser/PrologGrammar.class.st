@@ -32,10 +32,16 @@ Class {
 		'termListWithOperators',
 		'holeList',
 		'fullCommaList',
-		'emptyList'
+		'emptyList',
+		'anonymousVariable'
 	],
 	#category : #'Prolog-Parser'
 }
+
+{ #category : #accessing }
+PrologGrammar >> anonymousVariable [
+	^ $_ asPParser trim
+]
 
 { #category : #accessing }
 PrologGrammar >> atom [ 
@@ -134,7 +140,7 @@ PrologGrammar >> lowercase [
 
 { #category : #accessing }
 PrologGrammar >> number [
-	^ #digit asPParser plus flatten
+	^ (#digit asPParser plus flatten , ($. asPParser , #digit asPParser plus) optional flatten ) flatten
 ]
 
 { #category : #accessing }
@@ -213,5 +219,5 @@ PrologGrammar >> variable [
 	"A variable does either:
 	- starts with an uppercase letter and contains only valid chars
 	- starts with an underscore. Special variable is only underscore"
-	^ ((uppercase, atomCharacter star) / ($_ asPParser, atomCharacter star))  flatten
+	^ ((uppercase, atomCharacter star) / ($_ asPParser, atomCharacter star))  flatten / anonymousVariable
 ]
