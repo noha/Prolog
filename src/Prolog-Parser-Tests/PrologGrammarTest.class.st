@@ -6,7 +6,7 @@ Class {
 
 { #category : #private }
 PrologGrammarTest >> expectedFailures [ 
-	^ #( testTermComplexWithVariables testAtomSpecial)
+	^ #( testTermComplexWithVariables)
 ]
 
 { #category : #accessing }
@@ -48,9 +48,9 @@ mother(M,C) :- female(M), parent(M,C).
 ]
 
 { #category : #tests }
-PrologGrammarTest >> testAtom [
+PrologGrammarTest >> testAtomEmptyList [
 	self 
-    parse: 'male' 
+    parse: '[]' 
     rule: #atom
 ]
 
@@ -62,9 +62,30 @@ PrologGrammarTest >> testAtomInvalid [
 ]
 
 { #category : #tests }
-PrologGrammarTest >> testAtomSpecial [
+PrologGrammarTest >> testAtomQuotedSpaces [
 	self 
-    parse: '\+' 
+    parse: '''some atom''' 
+    rule: #atom
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testAtomQuotedUppercase [
+	self 
+    parse: '''Taco''' 
+    rule: #atom
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testAtomSingleCharacter [
+	self 
+    parse: 'x' 
+    rule: #atom
+]
+
+{ #category : #tests }
+PrologGrammarTest >> testAtomWord [
+	self 
+    parse: 'male' 
     rule: #atom
 ]
 

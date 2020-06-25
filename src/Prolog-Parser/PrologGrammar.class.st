@@ -31,7 +31,8 @@ Class {
 		'commaList',
 		'termListWithOperators',
 		'holeList',
-		'fullCommaList'
+		'fullCommaList',
+		'emptyList'
 	],
 	#category : #'Prolog-Parser'
 }
@@ -42,7 +43,7 @@ PrologGrammar >> atom [
 	or is enclosed in single quotes."
 	self flag: #todo.
 	"Combination of special characters I saw somewhere on the net but not sure"
-	^ (lowercase, atomCharacter star / ($' asPParser, string, $' asPParser)) flatten
+	^ (lowercase, atomCharacter star / ($' asPParser, string, $' asPParser)) flatten / emptyList
 ]
 
 { #category : #accessing }
@@ -84,6 +85,11 @@ PrologGrammar >> commaList [
 { #category : #accessing }
 PrologGrammar >> compoundTerm [
 	^ rule / infixCompoundTerm / prefixCompoundTerm
+]
+
+{ #category : #accessing }
+PrologGrammar >> emptyList [
+	^ '[]' asPParser trim
 ]
 
 { #category : #'as yet unclassified' }
