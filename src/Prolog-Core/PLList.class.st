@@ -2,7 +2,8 @@ Class {
 	#name : #PLList,
 	#superclass : #PLTerm,
 	#instVars : [
-		'elements'
+		'elements',
+		'parent'
 	],
 	#category : #'Prolog-Core'
 }
@@ -52,24 +53,6 @@ PLList >> first [
 	^ elements first
 ]
 
-{ #category : #accessing }
-PLList >> functor: anAtom arguments: aCollection [ 
-	self flag: #todo.
-	"overwritten method from super to disable collection check which is ok here"
-	self assert: (aCollection isKindOf: PLLinkedList) not.
-	self assert: (aCollection noneSatisfy: [:each | each isKindOf: PLLinkedList]).
-	aCollection do: [:each | each parent: self].
-	arguments := aCollection
-]
-
-{ #category : #'as yet unclassified' }
-PLList >> hasSameArguments: aCollection [ 
-	arguments withIndexDo: [ :each :index |
-		(each unifiesWithTerm: (aCollection at: index)) ifFalse: [ 
-			^ false ] ].
-	^ true
-]
-
 { #category : #'as yet unclassified' }
 PLList >> hasSameElements: aCollection [ 
 	elements withIndexDo: [ :each :index |
@@ -83,9 +66,15 @@ PLList >> isEmpty [
 	^ elements isEmpty 
 ]
 
+{ #category : #parent }
+PLList >> parent [
+	^ parent
+]
+
 { #category : #'as yet unclassified' }
 PLList >> parent: aTerm [
-	elements do: [ :each | each parent: aTerm ]
+	parent := aTerm.
+	elements do: [ :each | each parent: self  ]
 ]
 
 { #category : #printing }
