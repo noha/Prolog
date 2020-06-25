@@ -60,7 +60,7 @@ PLList >> first [
 { #category : #'as yet unclassified' }
 PLList >> hasSameElements: aCollection [ 
 	elements withIndexDo: [ :each :index |
-		(each unifiesWithTerm: (aCollection at: index)) ifFalse: [ 
+		(each unify: (aCollection at: index)) ifFalse: [ 
 			^ false ] ].
 	^ true
 ]
@@ -99,19 +99,19 @@ PLList >> size [
 ]
 
 { #category : #'as yet unclassified' }
-PLList >> unifiesWithList: aPLLinkedList [ 
-	^ aPLLinkedList unifyArguments: elements
-]
-
-{ #category : #'as yet unclassified' }
-PLList >> unifiesWithTerm: aTerm [
-	^ aTerm unifiesWithList: self 
+PLList >> unify: aTerm [
+	^ aTerm unifyWithList: self 
 ]
 
 { #category : #'as yet unclassified' }
 PLList >> unifyArguments: aCollection [ 
 	elements withIndexDo: [ :each :index |
-		(each unifiesWithTerm: (aCollection at: index)) ifFalse: [ 
+		(each unify: (aCollection at: index)) ifFalse: [ 
 			^ false ] ].
 	^ true
+]
+
+{ #category : #'as yet unclassified' }
+PLList >> unifyWithList: aPLLinkedList [ 
+	^ aPLLinkedList unifyArguments: elements
 ]

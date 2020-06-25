@@ -22,7 +22,7 @@ PLCompoundTerm >> call [
 	terms do: [ :each | | ctx |
 		ctx := self callContext makeCopy.
 		ret := ctx
-			execute: [ each unifiesWithTerm: self ]
+			execute: [ each unify: self ]
 			for: each
 			copyVariables: false.
 		ret ifTrue: [
@@ -51,7 +51,7 @@ PLCompoundTerm >> functorName [
 
 { #category : #'as yet unclassified' }
 PLCompoundTerm >> hasSameFunctor: anAtom [ 
-	^ anAtom unifiesWithAtom: functor
+	^ anAtom unifyWithAtom: functor
 ]
 
 { #category : #accessing }
@@ -89,11 +89,11 @@ PLCompoundTerm >> unifiesWithCompundTerm: aPLCompoundTerm [
 ]
 
 { #category : #'as yet unclassified' }
-PLCompoundTerm >> unifiesWithTerm: aTerm [ 
+PLCompoundTerm >> unify: aTerm [ 
 	^ aTerm unifiesWithCompundTerm: self
 ]
 
 { #category : #unifying }
 PLCompoundTerm >> unifyArguments: aPLLinkedList [ 
-	^ aPLLinkedList unifiesWithList: arguments
+	^ aPLLinkedList unifyWithList: arguments
 ]

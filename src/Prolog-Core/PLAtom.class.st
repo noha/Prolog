@@ -44,17 +44,21 @@ PLAtom >> printOn: aStream [
 ]
 
 { #category : #'as yet unclassified' }
-PLAtom >> unifiesWithAtom: aAtom [ 
+PLAtom >> unify: aTerm [
+	^ aTerm unifyWithAtom: self 
+]
+
+{ #category : #'as yet unclassified' }
+PLAtom >> unifyWithAtom: aAtom [ 
 	^ aAtom hasSameName: name
 ]
 
-{ #category : #'as yet unclassified' }
-PLAtom >> unifiesWithTerm: aTerm [
-	^ aTerm unifiesWithAtom: self 
+{ #category : #unifying }
+PLAtom >> unifyWithNumber: aPLNumber [ 
+	^ false
 ]
 
 { #category : #'as yet unclassified' }
-PLAtom >> unifiesWithVariable: aPLVariable [ 
-	^ aPLVariable notGrounded or: [ 
-		aPLVariable hasSameContent: name ]
+PLAtom >> unifyWithVariable: aPLVariable [ 
+	^ aPLVariable unifyWithAtom: self
 ]

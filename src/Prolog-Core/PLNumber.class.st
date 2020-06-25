@@ -19,23 +19,28 @@ PLNumber >> printOn: aStream [
 ]
 
 { #category : #unification }
-PLNumber >> unifiesWithNumber: aPLNumber [ 
-	^ aPLNumber unifiesWithValue: value
-]
-
-{ #category : #unification }
-PLNumber >> unifiesWithTerm: aTerm [
-	^ aTerm unifiesWithNumber: self
-]
-
-{ #category : #unification }
 PLNumber >> unifiesWithValue: anInteger [ 
 	^ value == anInteger
 ]
 
 { #category : #unification }
-PLNumber >> unifiesWithVariable: aPLVariable [ 
-	^ aPLVariable unifiesWithNumber: self
+PLNumber >> unify: aTerm [
+	^ aTerm unifyWithNumber: self
+]
+
+{ #category : #unifying }
+PLNumber >> unifyWithAtom: aPLAtom [ 
+	^ false
+]
+
+{ #category : #unification }
+PLNumber >> unifyWithNumber: aPLNumber [ 
+	^ aPLNumber unifiesWithValue: value
+]
+
+{ #category : #unification }
+PLNumber >> unifyWithVariable: aPLVariable [ 
+	^ aPLVariable unifyWithNumber: self
 ]
 
 { #category : #evaluating }

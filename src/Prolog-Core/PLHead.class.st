@@ -49,6 +49,6 @@ PLHead >> unifiesWithCompundTerm: aPLCompoundTerm [
 ]
 
 { #category : #'as yet unclassified' }
-PLHead >> unifiesWithTerm: aTerm [ 
-	^ head unifiesWithTerm: aTerm
+PLHead >> unify: aTerm [ 
+	^ head unify: aTerm
 ]
