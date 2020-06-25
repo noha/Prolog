@@ -18,52 +18,52 @@ PLUnificationTest >> performTest [
 
 { #category : #tests }
 PLUnificationTest >> testAtom_AtomDifferent [
-	self deny: (#foo asPLAtom unify: #bar asPLAtom)
+	self deny: (#foo asPLTerm unify: #bar asPLTerm)
 ]
 
 { #category : #tests }
 PLUnificationTest >> testAtom_AtomSame [
-	self assert: (#foo asPLAtom unify: #foo asPLAtom)
+	self assert: (#foo asPLTerm unify: #foo asPLTerm)
 ]
 
 { #category : #tests }
 PLUnificationTest >> testAtom_Number [
-	self deny: (#foo asPLAtom unify: 1234 asPLAtom)
+	self deny: (#foo asPLTerm unify: 1234 asPLTerm)
 ]
 
 { #category : #tests }
 PLUnificationTest >> testNumber_Atom [
-	self deny: (1234 asPLAtom unify: #foo asPLAtom)
+	self deny: (1234 asPLTerm unify: #foo asPLTerm)
 ]
 
 { #category : #tests }
 PLUnificationTest >> testVariableDifferent_Atom [
-	self deny: ((self variable: 'foo' value: #bar asPLAtom) unify: #baz asPLAtom)  
+	self deny: ((self variable: 'foo' value: #bar asPLTerm) unify: #baz asPLTerm)  
 ]
 
 { #category : #tests }
 PLUnificationTest >> testVariableDifferent_Number [
-	self deny: ((self variable: 'foo' value: 123 asPLAtom) unify: 321 asPLAtom)  
+	self deny: ((self variable: 'foo' value: 123 asPLTerm) unify: 321 asPLTerm)  
 ]
 
 { #category : #tests }
 PLUnificationTest >> testVariableEmpty_Atom [
-	self assert: ((self variable: 'foo') unify: #baz asPLAtom)  
+	self assert: ((self variable: 'foo') unify: #baz asPLTerm)  
 ]
 
 { #category : #tests }
 PLUnificationTest >> testVariableEmpty_Number [
-	self assert: ((self variable: 'foo') unify: 123 asPLAtom)  
+	self assert: ((self variable: 'foo') unify: 123 asPLTerm)  
 ]
 
 { #category : #tests }
 PLUnificationTest >> testVariableSame_Atom [
-	self assert: ((self variable: 'foo' value: #bar asPLAtom) unify: #bar asPLAtom)  
+	self assert: ((self variable: 'foo' value: #bar asPLTerm) unify: #bar asPLTerm)  
 ]
 
 { #category : #tests }
 PLUnificationTest >> testVariableSame_Number [
-	self assert: ((self variable: 'foo' value: 123 asPLAtom) unify: 123 asPLAtom)  
+	self assert: ((self variable: 'foo' value: 123 asPLTerm) unify: 123 asPLTerm)  
 ]
 
 { #category : #tests }
