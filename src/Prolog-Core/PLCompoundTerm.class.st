@@ -3,10 +3,9 @@ Class {
 	#superclass : #PLTerm,
 	#instVars : [
 		'functor',
-		'arguments',
-		'parent'
+		'arguments'
 	],
-	#category : #'Prolog-Core'
+	#category : #'Prolog-Core-Model'
 }
 
 { #category : #'instance creation' }
@@ -61,13 +60,8 @@ PLCompoundTerm >> indexKey [
 ]
 
 { #category : #'as yet unclassified' }
-PLCompoundTerm >> parent [
-	^ parent
-]
-
-{ #category : #'as yet unclassified' }
 PLCompoundTerm >> parent: aTerm [
-	parent := aTerm.
+	super parent: aTerm.
 	arguments parent: self
 ]
 

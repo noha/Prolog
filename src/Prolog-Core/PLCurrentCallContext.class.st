@@ -1,5 +1,5 @@
 Class {
 	#name : #PLCurrentCallContext,
 	#superclass : #DynamicVariable,
-	#category : #'Prolog-Core'
+	#category : #'Prolog-Core-Base'
 }

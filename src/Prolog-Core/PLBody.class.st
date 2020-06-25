@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'terms'
 	],
-	#category : #'Prolog-Core'
+	#category : #'Prolog-Core-Model'
 }
 
 { #category : #'instance creation' }

@@ -3,10 +3,9 @@ Class {
 	#superclass : #PLTerm,
 	#instVars : [
 		'name',
-		'reference',
-		'parent'
+		'reference'
 	],
-	#category : #'Prolog-Core'
+	#category : #'Prolog-Core-Model'
 }
 
 { #category : #'as yet unclassified' }
@@ -28,16 +27,6 @@ PLVariable >> name: aString [
 { #category : #testing }
 PLVariable >> notGrounded [
 	^ self isGrounded not
-]
-
-{ #category : #'as yet unclassified' }
-PLVariable >> parent [
-	^ parent
-]
-
-{ #category : #'as yet unclassified' }
-PLVariable >> parent: aTerm [
-	parent := aTerm
 ]
 
 { #category : #printing }

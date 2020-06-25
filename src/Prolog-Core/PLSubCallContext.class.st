@@ -6,7 +6,7 @@ Class {
 		'sender',
 		'parent'
 	],
-	#category : #'Prolog-Core'
+	#category : #'Prolog-Core-Base'
 }
 
 { #category : #'as yet unclassified' }

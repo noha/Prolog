@@ -1,7 +1,10 @@
 Class {
 	#name : #PLTerm,
 	#superclass : #Object,
-	#category : #'Prolog-Core'
+	#instVars : [
+		'parent'
+	],
+	#category : #'Prolog-Core-Model'
 }
 
 { #category : #'as yet unclassified' }
@@ -17,6 +20,16 @@ PLTerm >> knowledgeBase [
 { #category : #'as yet unclassified' }
 PLTerm >> myCallContext [
 	^ PLCurrentCallContext value contextFor: self
+]
+
+{ #category : #accessing }
+PLTerm >> parent [
+	^ parent
+]
+
+{ #category : #accessing }
+PLTerm >> parent: anObject [
+	parent := anObject
 ]
 
 { #category : #'as yet unclassified' }

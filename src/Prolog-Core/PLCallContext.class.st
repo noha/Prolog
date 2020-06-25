@@ -6,7 +6,7 @@ Class {
 		'variables',
 		'choicePoints'
 	],
-	#category : #'Prolog-Core'
+	#category : #'Prolog-Core-Base'
 }
 
 { #category : #accessing }

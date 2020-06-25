@@ -3,10 +3,9 @@ Class {
 	#superclass : #PLTerm,
 	#instVars : [
 		'head',
-		'tail',
-		'parent'
+		'tail'
 	],
-	#category : #'Prolog-Core'
+	#category : #'Prolog-Core-Model'
 }
 
 { #category : #'instance creation' }
@@ -26,16 +25,6 @@ PLHoleList >> head: headVariable tail: tailVariable [
 	head := headVariable.
 	tailVariable parent: self.
 	tail := tailVariable 
-]
-
-{ #category : #accessing }
-PLHoleList >> parent [
-	^ parent
-]
-
-{ #category : #accessing }
-PLHoleList >> parent: aTerm [
-	parent := aTerm
 ]
 
 { #category : #'as yet unclassified' }

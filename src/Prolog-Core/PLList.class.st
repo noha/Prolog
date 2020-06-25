@@ -2,10 +2,9 @@ Class {
 	#name : #PLList,
 	#superclass : #PLTerm,
 	#instVars : [
-		'elements',
-		'parent'
+		'elements'
 	],
-	#category : #'Prolog-Core'
+	#category : #'Prolog-Core-Model'
 }
 
 { #category : #accessing }
@@ -66,14 +65,9 @@ PLList >> isEmpty [
 	^ elements isEmpty 
 ]
 
-{ #category : #parent }
-PLList >> parent [
-	^ parent
-]
-
 { #category : #'as yet unclassified' }
 PLList >> parent: aTerm [
-	parent := aTerm.
+	super parent: aTerm.
 	elements do: [ :each | each parent: self  ]
 ]
 

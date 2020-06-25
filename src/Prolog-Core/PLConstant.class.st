@@ -1,10 +1,5 @@
 Class {
 	#name : #PLConstant,
 	#superclass : #PLTerm,
-	#category : #'Prolog-Core'
+	#category : #'Prolog-Core-Model'
 }
-
-{ #category : #'as yet unclassified' }
-PLConstant >> parent: aTerm [
-	
-]
